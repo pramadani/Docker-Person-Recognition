@@ -1,13 +1,21 @@
 #!/bin/bash
-apt update
-apt install -y libgl1-mesa-glx
-apt install -y libglib2.0-0
+# Update package list and install dependencies
+sudo apt-get update
+sudo apt-get install -y ca-certificates curl
 
-pip3 install Flask
-pip3 install numpy
-pip3 install jsonpickle
-pip3 install opencv-python
+# Add Docker's official GPG key
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
 
-git clone https://github.com/pramadani/OtomasiAutoScale.git
-cd OtomasiAutoScale
-python3 flask_server.py
+# Add the Docker repository to Apt sources
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# Update the package list again
+sudo apt-get update
+
+# Install Docker packages
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
