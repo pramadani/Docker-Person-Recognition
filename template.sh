@@ -19,3 +19,9 @@ sudo apt-get update
 
 # Install Docker packages
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+# Pull the Docker image
+sudo docker pull pramadani/face-app:latest
+
+# Run the Docker container
+sudo docker run -d -p 5000:5000 pramadani/face-app:latest
